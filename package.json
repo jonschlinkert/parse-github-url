@@ -1,0 +1,35 @@
+{
+  "name": "parse-github-url",
+  "description": "Parse a github URL into an object.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/parse-github-url",
+  "author": {
+    "name": "Jon Schlinkert",
+    "url": "https://github.com/jonschlinkert"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/parse-github-url.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/parse-github-url/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/jonschlinkert/parse-github-url/blob/master/LICENSE"
+  },
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}
