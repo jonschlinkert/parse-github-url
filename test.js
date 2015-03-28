@@ -8,6 +8,8 @@ var o;
 describe('parse-github-url', function () {
   it('should get the user:', function () {
     assert.equal(gh(''), null);
+    assert.equal(gh('https://github.com/jonschlinkert/micromatch').user, 'jonschlinkert');
+    assert.equal(gh('git@github.com:assemble/verb.git').user, 'assemble');
     assert.equal(gh('assemble/verb#branch').user, 'assemble');
     assert.equal(gh('assemble/verb#dev').user, 'assemble');
     assert.equal(gh('assemble/verb').user, 'assemble');
