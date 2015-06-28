@@ -111,7 +111,8 @@ function trimSlash(path) {
 function repo(str) {
   if (!str || !str.length) return null;
   str = str.replace(/^\W+/, '');
-  return str.split('.')[0];
+  str = str.replace(/\.git$/, '');
+  return str;
 }
 
 function user(str) {
