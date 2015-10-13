@@ -1,7 +1,7 @@
 {
   "name": "parse-github-url",
   "description": "Parse a github URL into an object.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "homepage": "https://github.com/jonschlinkert/parse-github-url",
   "author": {
     "name": "Jon Schlinkert",
