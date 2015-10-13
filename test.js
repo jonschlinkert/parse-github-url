@@ -61,6 +61,8 @@ describe('parse-github-url', function () {
     assert.equal(gh('https://github.com/assemble/verb/tree/dev').branch, 'dev');
     assert.equal(gh('https://github.com/assemble/verb/tree/feature/dev').branch, 'feature/dev');
     assert.equal(gh('https://github.com/assemble/verb/tree/foo').branch, 'foo');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev').branch, 'dev');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
   });
   it('should use master branch when another branch is not defined:', function () {
     assert.equal(gh('assemble/verb').branch, 'master');
@@ -70,6 +72,7 @@ describe('parse-github-url', function () {
     assert.equal(gh('http://github.com/assemble/verb/tree/master').branch, 'master');
     assert.equal(gh('http://github.com/assemble/verb/tree/master/foo/bar').branch, 'master/foo/bar');
     assert.equal(gh('https://github.com/assemble/verb').branch, 'master');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb/blob/master/foo/index.js').branch, 'master');
   });
   it('should get a full repo path:', function () {
