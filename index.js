@@ -76,7 +76,7 @@ function parse(str) {
     }
   }
 
-  o.branch = o.branch || parseBranch(o.path, o);
+  o.branch = o.branch || seg[2] || parseBranch(o.path, o);
   var res = {};
   res.user = o.user || null;
   res.repo = o.repo || null;
