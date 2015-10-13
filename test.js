@@ -62,6 +62,8 @@ describe('parse-github-url', function () {
     assert.equal(gh('https://github.com/assemble/verb/tree/feature/dev').branch, 'feature/dev');
     assert.equal(gh('https://github.com/assemble/verb/tree/foo').branch, 'foo');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev').branch, 'dev');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07/README.md').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
   });
   it('should use master branch when another branch is not defined:', function () {
