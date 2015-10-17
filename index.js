@@ -116,6 +116,7 @@ function repo(str) {
 }
 
 function user(str) {
+  if (!str || !str.length) return null;
   if (str.indexOf(':') !== -1) {
     var segs = str.split(':');
     return segs[segs.length - 1];
