@@ -106,6 +106,9 @@ describe('parse-github-url', function () {
     assert.equal(gh('http://github.com/assemble').repo, null);
     assert.equal(gh('http://github.com/assemble').repopath, null);
     assert.equal(gh('http://github.com/assemble').user, 'assemble');
+    assert.equal(gh('https://github.com').repo, null);
+    assert.equal(gh('https://github.com').repopath, null);
+    assert.equal(gh('https://github.com').user, null);
   });
   it('should get the repo:', function () {
     assert.equal(gh('assemble/verb#branch').repo, 'verb');
