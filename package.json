@@ -37,13 +37,13 @@
     "username"
   ],
   "verb": {
-    "plugins": [
-      "gulp-format-md"
-    ],
     "related": {
       "list": [
         "is-git-url"
       ]
-    }
+    },
+    "plugins": [
+      "gulp-format-md"
+    ]
   }
 }

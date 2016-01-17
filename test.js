@@ -5,8 +5,8 @@ var assert = require('assert');
 var gh = require('./');
 var o;
 
-describe('parse-github-url', function () {
-  it('should get the user:', function () {
+describe('parse-github-url', function() {
+  it('should get the user:', function() {
     assert.equal(gh(''), null);
     assert.equal(gh('https://github.com/jonschlinkert/micromatch').user, 'jonschlinkert');
     assert.equal(gh('git@github.com:assemble/verb.git').user, 'assemble');
@@ -52,7 +52,7 @@ describe('parse-github-url', function () {
     assert.equal(gh(null), null);
     assert.equal(gh(undefined), null);
   });
-  it('should get the branch:', function () {
+  it('should get the branch:', function() {
     assert.equal(gh('assemble/verb#branch').branch, 'branch');
     assert.equal(gh('assemble/verb#dev').branch, 'dev');
     assert.equal(gh('git@github.com:assemble/verb.git#0.6.0').branch, '0.6.0');
@@ -66,7 +66,7 @@ describe('parse-github-url', function () {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07/README.md').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
   });
-  it('should use master branch when another branch is not defined:', function () {
+  it('should use master branch when another branch is not defined:', function() {
     assert.equal(gh('assemble/verb').branch, 'master');
     assert.equal(gh('git://github.com/foo/bar.git').branch, 'master');
     assert.equal(gh('git@github.com:assemble/verb.git').branch, 'master');
@@ -77,7 +77,7 @@ describe('parse-github-url', function () {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb/blob/master/foo/index.js').branch, 'master');
   });
-  it('should get a full repo path:', function () {
+  it('should get a full repo path:', function() {
     assert.equal(gh('assemble/verb#dev').repopath, 'assemble/verb');
     assert.equal(gh('assemble/verb').repopath, 'assemble/verb');
     assert.equal(gh('git+https://github.com/assemble/verb.git').repopath, 'assemble/verb');
@@ -87,7 +87,7 @@ describe('parse-github-url', function () {
     assert.equal(gh('git://github.one.com/assemble/verb.git').repopath, 'assemble/verb');
     assert.equal(gh('git://github.one.two.com/assemble/verb.git').repopath, 'assemble/verb');
   });
-  it('should know when repo is not defined:', function () {
+  it('should know when repo is not defined:', function() {
     assert.equal(gh('git+https://github.com/assemble').repo, null);
     assert.equal(gh('git+https://github.com/assemble').repopath, null);
     assert.equal(gh('git+https://github.com/assemble').user, 'assemble');
@@ -110,7 +110,7 @@ describe('parse-github-url', function () {
     assert.equal(gh('https://github.com').repopath, null);
     assert.equal(gh('https://github.com').user, null);
   });
-  it('should get the repo:', function () {
+  it('should get the repo:', function() {
     assert.equal(gh('assemble/verb#branch').repo, 'verb');
     assert.equal(gh('assemble/dot.repo#branch').repo, 'dot.repo');
     assert.equal(gh('assemble/verb#dev').repo, 'verb');
