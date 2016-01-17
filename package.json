@@ -39,7 +39,9 @@
   "verb": {
     "related": {
       "list": [
-        "is-git-url"
+        "is-git-url",
+        "parse-github-short-url",
+        "github-short-url-regex"
       ]
     },
     "plugins": [

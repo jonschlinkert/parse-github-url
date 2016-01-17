@@ -321,7 +321,9 @@ Generated results from test fixtures:
 
 ## Related projects
 
-[is-git-url](https://www.npmjs.com/package/is-git-url): Regex to validate that a URL is a git url. | [homepage](https://github.com/jonschlinkert/is-git-url)
+* [github-short-url-regex](https://www.npmjs.com/package/github-short-url-regex): Regular expression (Regex) for matching github shorthand (user/repo#branch). | [homepage](https://github.com/regexps/github-short-url-regex)
+* [is-git-url](https://www.npmjs.com/package/is-git-url): Regex to validate that a URL is a git url. | [homepage](https://github.com/jonschlinkert/is-git-url)
+* [parse-github-short-url](https://www.npmjs.com/package/parse-github-short-url): Parse a string (github shorthand url) into an object with `user`, `repo`, `branch` using the… [more](https://www.npmjs.com/package/parse-github-short-url) | [homepage](https://github.com/tunnckoCore/parse-github-short-url)
 
 ## History
 
