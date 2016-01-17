@@ -8,10 +8,9 @@
 'use strict';
 
 var url = require('url');
-
 var cache = {};
 
-module.exports = function gh(str) {
+module.exports = function parseGithubUrl(str) {
   return cache[str] || (cache[str] = parse(str));
 };
 
@@ -25,63 +24,66 @@ function parse(str) {
   }
 
   // parse the URL
-  var o = url.parse(str);
+  var obj = url.parse(str);
+  obj.path = trimSlash(obj.path);
+  obj.pathname = trimSlash(obj.pathname);
 
-  o.path = trimSlash(o.path);
-  o.pathname = trimSlash(o.pathname);
-
-  if (o.path.indexOf('repos') === 0) {
-    o.path = o.path.substr(6);
+  if (obj.path.indexOf('repos') === 0) {
+    obj.path = obj.path.slice(6);
   }
 
-  var seg = o.path.split('/').filter(Boolean);
+  var seg = obj.path.split('/').filter(Boolean);
   var hasBlob = seg[2] === 'blob';
   if (hasBlob && !isChecksum(seg[3])) {
-    o.branch = seg[3];
+    obj.branch = seg[3];
   }
 
   var blob = str.indexOf('blob');
   if (blob !== -1) {
-    o.blob = str.substr(blob + 5);
-    str = str.substr(0, blob);
+    obj.blob = str.slice(blob + 5);
+    str = str.slice(0, blob);
   }
 
   var tree = str.indexOf('tree');
   if (tree !== -1) {
-    o.branch = str.substr(tree + 5);
+    obj.branch = str.slice(tree + 5);
   }
 
-  o.user = user(seg[0]);
-  o.repo = repo(seg[1]);
+  obj.owner = owner(seg[0]);
+  obj.name = name(seg[1]);
 
-  if (seg.length > 1 && o.user && o.repo) {
-    o.repopath = o.user + '/' + o.repo;
+  if (seg.length > 1 && obj.owner && obj.name) {
+    obj.repo = obj.owner + '/' + obj.name;
   } else {
-    var href = o.href.split(':');
-    if (href.length === 2 && o.href.indexOf('//') === -1) {
-      o.repopath = o.repopath || href[href.length - 1];
-      var repoSegments = o.repopath.split('/');
-      o.user = repoSegments[0];
-      o.repo = repoSegments[1];
+    var href = obj.href.split(':');
+    if (href.length === 2 && obj.href.indexOf('//') === -1) {
+      obj.repo = obj.repo || href[href.length - 1];
+      var repoSegments = obj.repo.split('/');
+      obj.owner = repoSegments[0];
+      obj.name = repoSegments[1];
+
     } else {
-      var match = o.href.match(/\/([^\/]*)$/);
-      o.user = match ? match[1] : null;
-      o.repopath = null;
+      var match = obj.href.match(/\/([^\/]*)$/);
+      obj.owner = match ? match[1] : null;
+      obj.repo = null;
     }
 
-    var segs = o.repopath && o.repopath.split('/').filter(Boolean);
-    if (segs && segs.length === 2) {
-      o.user = segs[0];
-      o.repo = segs[1];
+    if (obj.repo && (!obj.owner || !obj.name)) {
+      var segs = obj.repo.split('/');
+      if (segs.length === 2) {
+        obj.owner = segs[0];
+        obj.name = segs[1];
+      }
     }
   }
 
-  o.branch = o.branch || seg[2] || parseBranch(o.path, o);
+  obj.branch = obj.branch || seg[2] || getBranch(obj.path, obj);
   var res = {};
-  res.user = o.user || null;
-  res.repo = o.repo || null;
-  res.repopath = o.repopath;
-  res.branch = o.branch;
+  res.owner = obj.owner || null;
+  res.name = obj.name || null;
+  res.repo = obj.repo;
+  res.repository = res.repo;
+  res.branch = obj.branch;
   return res;
 }
 
@@ -89,37 +91,31 @@ function isChecksum(str) {
   return /^[a-f0-9]{40}$/i.test(str);
 }
 
-function parseBranch(str, obj) {
+function getBranch(str, obj) {
   var branch;
   var segs = str.split('#');
   if (segs.length !== 1) {
     branch = segs[segs.length - 1];
   }
   if (!branch && obj.hash && obj.hash.charAt(0) === '#') {
-    branch = obj.hash.substr(1);
+    branch = obj.hash.slice(1);
   }
   return branch || 'master';
 }
 
 function trimSlash(path) {
-  if (path.charAt(0) === '/') {
-    path = path.slice(1);
-  }
-  return path;
+  return path.charAt(0) === '/' ? path.slice(1) : path;
 }
 
-function repo(str) {
-  if (!str || !str.length) return null;
-  str = str.replace(/^\W+/, '');
-  str = str.replace(/\.git$/, '');
-  return str;
+function name(str) {
+  return str ? str.replace(/^\W+|\.git$/g, '') : null;
 }
 
-function user(str) {
-  if (!str || !str.length) return null;
-  if (str.indexOf(':') !== -1) {
-    var segs = str.split(':');
-    return segs[segs.length - 1];
+function owner(str) {
+  if (!str) return null;
+  var idx = str.indexOf(':');
+  if (idx > -1) {
+    return str.slice(idx + 1);
   }
   return str;
 }
