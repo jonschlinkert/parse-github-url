@@ -41,7 +41,7 @@ var formats = [
 ];
 
 var res = '```js';
-formats.forEach(function (url) {
+formats.forEach(function(url) {
   res += '\n// ' + url + '\n' + JSON.stringify(gh(url), null, 2) + '\n';
 });
 

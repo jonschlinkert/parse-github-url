@@ -3,14 +3,8 @@
   "description": "Parse a github URL into an object.",
   "version": "0.2.1",
   "homepage": "https://github.com/jonschlinkert/parse-github-url",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/parse-github-url.git"
-  },
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/parse-github-url",
   "bugs": {
     "url": "https://github.com/jonschlinkert/parse-github-url/issues"
   },
@@ -26,6 +20,7 @@
     "test": "mocha"
   },
   "devDependencies": {
+    "gulp-format-md": "^0.1.5",
     "mocha": "*"
   },
   "keywords": [
@@ -40,5 +35,15 @@
     "url",
     "user",
     "username"
-  ]
+  ],
+  "verb": {
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "is-git-url"
+      ]
+    }
+  }
 }
