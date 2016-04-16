@@ -79,6 +79,7 @@ function parse(str) {
 
   obj.branch = obj.branch || seg[2] || getBranch(obj.path, obj);
   var res = {};
+  res.host = obj.host || 'github.com';
   res.owner = obj.owner || null;
   res.name = obj.name || null;
   res.repo = obj.repo;

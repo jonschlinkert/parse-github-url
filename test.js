@@ -176,4 +176,18 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/repos/assemble/verb/zipball').name, 'verb');
     assert.equal(gh('https://github.com/repos/assemble/dot.repo/zipball').name, 'dot.repo');
   });
+  it('should get the host:', function () {
+    assert.equal(gh('git+https://github.com/assemble/verb.git').host, 'github.com');
+    assert.equal(gh('git+ssh://github.com/assemble/verb.git').host, 'github.com');
+    assert.equal(gh('git://github.com/assemble/verb').host, 'github.com');
+    assert.equal(gh('git://github.com/assemble/verb.git').host, 'github.com');
+    assert.equal(gh('git://github.one.com/assemble/verb.git').host, 'github.one.com');
+    assert.equal(gh('git://github.one.two.com/assemble/verb.git').host, 'github.one.two.com');
+    assert.equal(gh('https://github.com/assemble/verb').host, 'github.com');
+    assert.equal(gh('https://github.one.com/assemble/verb').host, 'github.one.com');
+    assert.equal(gh('https://github.one.two.com/assemble/verb').host, 'github.one.two.com');
+  });
+  it('should assume github.com is the host when not provided:', function () {
+    assert.equal(gh('assemble/verb').host, 'github.com');
+  });
 });
