@@ -51,6 +51,7 @@ describe('parse-github-url', function() {
     assert.equal(gh(null), null);
     assert.equal(gh(undefined), null);
   });
+
   it('should get the branch:', function() {
     assert.equal(gh('assemble/verb#branch').branch, 'branch');
     assert.equal(gh('assemble/verb#dev').branch, 'dev');
@@ -65,6 +66,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07/README.md').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
   });
+
   it('should use master branch when another branch is not defined:', function() {
     assert.equal(gh('assemble/verb').branch, 'master');
     assert.equal(gh('git://github.com/foo/bar.git').branch, 'master');
@@ -76,6 +78,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb/blob/master/foo/index.js').branch, 'master');
   });
+
   it('should get a full repo path:', function() {
     assert.equal(gh('assemble/verb#dev').repo, 'assemble/verb');
     assert.equal(gh('assemble/verb').repo, 'assemble/verb');
@@ -86,6 +89,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('git://github.one.com/assemble/verb.git').repo, 'assemble/verb');
     assert.equal(gh('git://github.one.two.com/assemble/verb.git').repo, 'assemble/verb');
   });
+
   it('should know when repo is not defined:', function() {
     assert.equal(gh('git+https://github.com/assemble').name, null);
     assert.equal(gh('git+https://github.com/assemble').repo, null);
@@ -176,7 +180,8 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/repos/assemble/verb/zipball').name, 'verb');
     assert.equal(gh('https://github.com/repos/assemble/dot.repo/zipball').name, 'dot.repo');
   });
-  it('should get the host:', function () {
+
+  it('should get the host:', function() {
     assert.equal(gh('git+https://github.com/assemble/verb.git').host, 'github.com');
     assert.equal(gh('git+ssh://github.com/assemble/verb.git').host, 'github.com');
     assert.equal(gh('git://github.com/assemble/verb').host, 'github.com');
@@ -187,7 +192,8 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.one.com/assemble/verb').host, 'github.one.com');
     assert.equal(gh('https://github.one.two.com/assemble/verb').host, 'github.one.two.com');
   });
-  it('should assume github.com is the host when not provided:', function () {
+
+  it('should assume github.com is the host when not provided:', function() {
     assert.equal(gh('assemble/verb').host, 'github.com');
   });
 });

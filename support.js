@@ -40,11 +40,14 @@ var formats = [
   'https://github.com/repos/assemble/verb/zipball',
 ];
 
-var res = '```js';
-formats.forEach(function(url) {
-  res += '\n// ' + url + '\n' + JSON.stringify(gh(url), null, 2) + '\n';
-});
-
-res += '```\n'
-
-console.log(res);
+module.exports = function() {
+  var res = '';
+  formats.forEach(function(url) {
+    res += '\n// '
+      + url + '\n'
+      + util.inspect(gh(url), null, 10)
+      + '\n';
+  });
+  console.log(res);
+  return res;
+};
