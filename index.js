@@ -25,6 +25,9 @@ function parse(str) {
 
   // parse the URL
   var obj = url.parse(str);
+  if (typeof obj.path !== 'string' || !obj.path.length || typeof obj.pathname !== 'string' || !obj.pathname.length) {
+    return null;
+  }
   obj.path = trimSlash(obj.path);
   obj.pathname = trimSlash(obj.pathname);
 

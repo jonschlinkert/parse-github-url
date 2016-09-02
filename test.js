@@ -47,6 +47,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/assemble/verb/tree/feature/dev').owner, 'assemble');
     assert.equal(gh('https://github.com/repos/assemble/verb/tarball').owner, 'assemble');
     assert.equal(gh('https://github.com/repos/assemble/verb/zipball').owner, 'assemble');
+    assert.equal(gh('foo:bar'), null);
     assert.equal(gh(), null);
     assert.equal(gh(null), null);
     assert.equal(gh(undefined), null);
