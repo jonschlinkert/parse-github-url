@@ -39,6 +39,10 @@ function parse(str) {
   var hasBlob = seg[2] === 'blob';
   if (hasBlob && !isChecksum(seg[3])) {
     obj.branch = seg[3];
+    if(seg.length > 4)
+    {
+      obj.filepath = seg.slice(4).join('/');
+    }
   }
 
   var blob = str.indexOf('blob');
@@ -80,7 +84,12 @@ function parse(str) {
     }
   }
 
-  obj.branch = obj.branch || seg[2] || getBranch(obj.path, obj);
+  if(!obj.branch){
+    obj.branch = seg[2] || getBranch(obj.path, obj);
+    if(seg.length > 3){
+      obj.filepath = seg.slice(3).join('/');
+    }
+  }
   var res = {};
   res.host = obj.host || 'github.com';
   res.owner = obj.owner || null;
@@ -88,6 +97,7 @@ function parse(str) {
   res.repo = obj.repo;
   res.repository = res.repo;
   res.branch = obj.branch;
+  res.filepath = obj.filepath || null;
   return res;
 }
 

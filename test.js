@@ -68,6 +68,18 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
   });
 
+  it('should get the filepath:', function() {
+    assert.equal(gh('assemble/verb#branch').filepath, null);
+    assert.equal(gh('git@github.com:assemble/verb.git#0.6.0').filepath, null);
+    assert.equal(gh('https://github.com/assemble/verb/blob/foo/README.md').filepath, 'README.md');
+    assert.equal(gh('https://github.com/assemble/verb/blob/foo/').filepath, null);
+    assert.equal(gh('https://github.com/assemble/verb/blob/foo').filepath, null);
+    assert.equal(gh('https://github.com/assemble/verb/blob/foo/bar/README.md').filepath, 'bar/README.md');
+    assert.equal(gh('https://github.com/assemble/verb/tree/dev').filepath, null);
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').filepath, 'README.md');
+    assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/bar/README.md').filepath, 'bar/README.md');
+  });
+
   it('should use master branch when another branch is not defined:', function() {
     assert.equal(gh('assemble/verb').branch, 'master');
     assert.equal(gh('git://github.com/foo/bar.git').branch, 'master');
