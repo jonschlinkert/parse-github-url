@@ -60,7 +60,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('git@github.com:assemble/verb.git#v0.6.0').branch, 'v0.6.0');
     assert.equal(gh('https://github.com/assemble/verb/blob/foo/README.md').branch, 'foo');
     assert.equal(gh('https://github.com/assemble/verb/tree/dev').branch, 'dev');
-    assert.equal(gh('https://github.com/assemble/verb/tree/feature/dev').branch, 'feature/dev');
+    assert.equal(gh('https://github.com/assemble/verb/tree/feature/dev').branch, 'feature');
     assert.equal(gh('https://github.com/assemble/verb/tree/foo').branch, 'foo');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev').branch, 'dev');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
@@ -86,7 +86,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('git@github.com:assemble/verb.git').branch, 'master');
     assert.equal(gh('github:assemble/verb').branch, 'master');
     assert.equal(gh('http://github.com/assemble/verb/tree/master').branch, 'master');
-    assert.equal(gh('http://github.com/assemble/verb/tree/master/foo/bar').branch, 'master/foo/bar');
+    assert.equal(gh('http://github.com/assemble/verb/tree/master/foo/bar').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb/blob/master/foo/index.js').branch, 'master');

@@ -28,8 +28,10 @@ function parse(str) {
   if (typeof obj.path !== 'string' || !obj.path.length || typeof obj.pathname !== 'string' || !obj.pathname.length) {
     return null;
   }
+
   obj.path = trimSlash(obj.path);
   obj.pathname = trimSlash(obj.pathname);
+  obj.filepath = null;
 
   if (obj.path.indexOf('repos') === 0) {
     obj.path = obj.path.slice(6);
@@ -39,8 +41,7 @@ function parse(str) {
   var hasBlob = seg[2] === 'blob';
   if (hasBlob && !isChecksum(seg[3])) {
     obj.branch = seg[3];
-    if(seg.length > 4)
-    {
+    if (seg.length > 4) {
       obj.filepath = seg.slice(4).join('/');
     }
   }
@@ -48,12 +49,17 @@ function parse(str) {
   var blob = str.indexOf('blob');
   if (blob !== -1) {
     obj.blob = str.slice(blob + 5);
-    str = str.slice(0, blob);
   }
 
   var tree = str.indexOf('tree');
   if (tree !== -1) {
-    obj.branch = str.slice(tree + 5);
+    var idx = tree + 5;
+    var branch = str.slice(idx);
+    var slash = branch.indexOf('/');
+    if (slash !== -1) {
+      branch = branch.slice(0, slash);
+    }
+    obj.branch = branch;
   }
 
   obj.owner = owner(seg[0]);
@@ -84,21 +90,18 @@ function parse(str) {
     }
   }
 
-  if(!obj.branch){
+  if (!obj.branch) {
     obj.branch = seg[2] || getBranch(obj.path, obj);
-    if(seg.length > 3){
+    if (seg.length > 3) {
       obj.filepath = seg.slice(3).join('/');
     }
   }
-  var res = {};
-  res.host = obj.host || 'github.com';
-  res.owner = obj.owner || null;
-  res.name = obj.name || null;
-  res.repo = obj.repo;
-  res.repository = res.repo;
-  res.branch = obj.branch;
-  res.filepath = obj.filepath || null;
-  return res;
+
+  obj.host = obj.host || 'github.com';
+  obj.owner = obj.owner || null;
+  obj.name = obj.name || null;
+  obj.repository = obj.repo;
+  return obj;
 }
 
 function isChecksum(str) {
@@ -106,9 +109,9 @@ function isChecksum(str) {
 }
 
 function getBranch(str, obj) {
-  var branch;
   var segs = str.split('#');
-  if (segs.length !== 1) {
+  var branch;
+  if (segs.length > 1) {
     branch = segs[segs.length - 1];
   }
   if (!branch && obj.hash && obj.hash.charAt(0) === '#') {
