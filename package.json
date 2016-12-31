@@ -21,7 +21,8 @@
   },
   "devDependencies": {
     "gulp-format-md": "^0.1.7",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "verb-generate-readme": "^0.2.1"
   },
   "keywords": [
     "branch",
@@ -37,6 +38,7 @@
     "username"
   ],
   "verb": {
+    "run": true,
     "plugins": [
       "gulp-format-md"
     ],
