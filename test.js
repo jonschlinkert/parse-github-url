@@ -204,6 +204,10 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/assemble/verb').host, 'github.com');
     assert.equal(gh('https://github.one.com/assemble/verb').host, 'github.one.com');
     assert.equal(gh('https://github.one.two.com/assemble/verb').host, 'github.one.two.com');
+    assert.equal(gh('git@gh.pages.com:assemble/verb.git').host, 'gh.pages.com');
+    assert.equal(gh('git@gh.pages.com:assemble/dot.repo.git').host, 'gh.pages.com');
+    assert.equal(gh('git@bitbucket.org:atlassian/atlaskit.git').host, 'bitbucket.org');
+    assert.equal(gh('git@gitlab.com:gitlab-org/gitlab-ce.git').host, 'gitlab.com');
   });
 
   it('should assume github.com is the host when not provided:', function() {

@@ -29,6 +29,11 @@ function parse(str) {
     return null;
   }
 
+  if (!obj.host && /^git@/.test(str) === true) {
+    // return the correct host for git@ URLs
+    obj.host = url.parse('http://' + str).host;
+  }
+
   obj.path = trimSlash(obj.path);
   obj.pathname = trimSlash(obj.pathname);
   obj.filepath = null;
