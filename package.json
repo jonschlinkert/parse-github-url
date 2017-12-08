@@ -7,6 +7,7 @@
   "contributors": [
     "Ben Meiri (https://github.com/bmeiri)",
     "Brian Woodward (https://twitter.com/doowb)",
+    "Javier Mendiara (http://twitter.com/jmendiara)",
     "Jeremy Ruppel (jeremyruppel.github.io)",
     "Jon Schlinkert (http://twitter.com/jonschlinkert)",
     "Pete Cook (cookpete.com)",
@@ -19,12 +20,13 @@
   },
   "license": "MIT",
   "files": [
+    "cli.js",
     "index.js"
   ],
-  "bin": {
-    "parse-github-url" : "./cli.js"
-  },
   "main": "index.js",
+  "bin": {
+    "parse-github-url": "./cli.js"
+  },
   "engines": {
     "node": ">=0.10.0"
   },
