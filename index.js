@@ -52,12 +52,13 @@ function parse(str) {
   }
 
   var blob = str.indexOf('blob');
-  if (blob !== -1) {
+  if (hasBlob && blob !== -1) {
     obj.blob = str.slice(blob + 5);
   }
 
+  var hasTree = seg[2] === 'tree';
   var tree = str.indexOf('tree');
-  if (tree !== -1) {
+  if (hasTree && tree !== -1) {
     var idx = tree + 5;
     var branch = str.slice(idx);
     var slash = branch.indexOf('/');
