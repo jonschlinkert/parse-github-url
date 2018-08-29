@@ -78,6 +78,14 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/assemble/verb/tree/dev').filepath, null);
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').filepath, 'README.md');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/bar/README.md').filepath, 'bar/README.md');
+    assert.equal(gh('https://github.com/owner/blob/blob/foo/README.md').filepath, 'README.md');
+    assert.equal(gh('https://github.com/blob/project/blob/foo/README.md').filepath, 'README.md');
+    assert.equal(gh('https://github.com/owner/tree/tree/foo/README.md').filepath, null);
+    assert.equal(gh('https://github.com/tree/project/tree/foo/README.md').filepath, null);
+    assert.equal(gh('https://raw.githubusercontent.com/owner/tree/dev/README.md').filepath, 'README.md');
+    assert.equal(gh('https://raw.githubusercontent.com/tree/project/dev/README.md').filepath, 'README.md');
+    assert.equal(gh('https://raw.githubusercontent.com/owner/blob/dev/README.md').filepath, 'README.md');
+    assert.equal(gh('https://raw.githubusercontent.com/blob/project/dev/README.md').filepath, 'README.md');
   });
 
   it('should use master branch when another branch is not defined:', function() {
