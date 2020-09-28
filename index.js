@@ -44,10 +44,15 @@ function parse(str) {
 
   var seg = obj.path.split('/').filter(Boolean);
   var hasBlob = seg[2] === 'blob';
-  if (hasBlob && !isChecksum(seg[3])) {
-    obj.branch = seg[3];
-    if (seg.length > 4) {
-      obj.filepath = seg.slice(4).join('/');
+  if (hasBlob) {
+    if (isChecksum(seg[3])) {
+      obj.branch = 'master'
+    }
+    else {
+      obj.branch = seg[3];
+      if (seg.length > 4) {
+        obj.filepath = seg.slice(4).join('/');
+      }
     }
   }
 
