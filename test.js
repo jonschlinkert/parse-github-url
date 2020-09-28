@@ -66,6 +66,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07/README.md').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
+    assert.equal(gh('https://github.com/assemble/verb/blob/4ea41d0d11292c3a4788040bb822e7a6d88784de/README.md#heading1').branch, 'master');
   });
 
   it('should get the filepath:', function() {
