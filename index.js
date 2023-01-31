@@ -130,7 +130,7 @@ function trimSlash(path) {
 }
 
 function name(str) {
-  return str ? str.replace(/^\W+|\.git$/g, '') : null;
+  return str ? str.replace(/\.git$/, '') : null;
 }
 
 function owner(str) {

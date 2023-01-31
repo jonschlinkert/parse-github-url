@@ -192,6 +192,7 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/repos/assemble/dot.repo/tarball').name, 'dot.repo');
     assert.equal(gh('https://github.com/repos/assemble/verb/zipball').name, 'verb');
     assert.equal(gh('https://github.com/repos/assemble/dot.repo/zipball').name, 'dot.repo');
+    assert.equal(gh('SocialGouv/.kontinuous').name, '.kontinuous');
   });
 
   it('should get the host:', function() {
