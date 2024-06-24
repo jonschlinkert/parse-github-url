@@ -1,11 +1,11 @@
 'use strict';
 
-require('mocha');
-var assert = require('assert');
-var gh = require('./');
+var test = require('tape');
 
-describe('parse-github-url', function() {
-  it('should get the user:', function() {
+var gh = require('../');
+
+test('parse-github-url', function (t) {
+  t.test('gets the user:', function (assert) {
     assert.equal(gh(''), null);
     assert.equal(gh('https://github.com/jonschlinkert/micromatch').owner, 'jonschlinkert');
     assert.equal(gh('git@github.com:assemble/verb.git').owner, 'assemble');
@@ -51,9 +51,11 @@ describe('parse-github-url', function() {
     assert.equal(gh(), null);
     assert.equal(gh(null), null);
     assert.equal(gh(undefined), null);
+
+    assert.end();
   });
 
-  it('should get the branch:', function() {
+  t.test('gets the branch:', function (assert) {
     assert.equal(gh('assemble/verb#branch').branch, 'branch');
     assert.equal(gh('assemble/verb#dev').branch, 'dev');
     assert.equal(gh('git@github.com:assemble/verb.git#0.6.0').branch, '0.6.0');
@@ -67,9 +69,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/4d0ebde055557a0d1d988c01e0f070df8cc8fa07/README.md').branch, '4d0ebde055557a0d1d988c01e0f070df8cc8fa07');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb/dev/README.md').branch, 'dev');
     assert.equal(gh('https://github.com/contentful/extensions/blob/master/samples/content-tree/extension.json').branch, 'master');
+
+    assert.end();
   });
 
-  it('should get the filepath:', function() {
+  t.test('gets the filepath:', function (assert) {
     assert.equal(gh('assemble/verb#branch').filepath, null);
     assert.equal(gh('git@github.com:assemble/verb.git#0.6.0').filepath, null);
     assert.equal(gh('https://github.com/assemble/verb/blob/foo/README.md').filepath, 'README.md');
@@ -87,9 +91,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://raw.githubusercontent.com/tree/project/dev/README.md').filepath, 'README.md');
     assert.equal(gh('https://raw.githubusercontent.com/owner/blob/dev/README.md').filepath, 'README.md');
     assert.equal(gh('https://raw.githubusercontent.com/blob/project/dev/README.md').filepath, 'README.md');
+
+    assert.end();
   });
 
-  it('should use master branch when another branch is not defined:', function() {
+  t.test('uses master branch when another branch is not defined:', function (assert) {
     assert.equal(gh('assemble/verb').branch, 'master');
     assert.equal(gh('git://github.com/foo/bar.git').branch, 'master');
     assert.equal(gh('git@github.com:assemble/verb.git').branch, 'master');
@@ -99,9 +105,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://raw.githubusercontent.com/assemble/verb').branch, 'master');
     assert.equal(gh('https://github.com/assemble/verb/blob/master/foo/index.js').branch, 'master');
+
+    assert.end();
   });
 
-  it('should get a full repo path:', function() {
+  t.test('gets a full repo path:', function (assert) {
     assert.equal(gh('assemble/verb#dev').repo, 'assemble/verb');
     assert.equal(gh('assemble/verb').repo, 'assemble/verb');
     assert.equal(gh('git+https://github.com/assemble/verb.git').repo, 'assemble/verb');
@@ -110,9 +118,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('git://github.com/assemble/verb.git').repo, 'assemble/verb');
     assert.equal(gh('git://github.one.com/assemble/verb.git').repo, 'assemble/verb');
     assert.equal(gh('git://github.one.two.com/assemble/verb.git').repo, 'assemble/verb');
+
+    assert.end();
   });
 
-  it('should know when repo is not defined:', function() {
+  t.test('knows when repo is not defined:', function (assert) {
     assert.equal(gh('git+https://github.com/assemble').name, null);
     assert.equal(gh('git+https://github.com/assemble').repo, null);
     assert.equal(gh('git+https://github.com/assemble').owner, 'assemble');
@@ -136,9 +146,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com').repo, null);
     assert.equal(gh('http://github.com/assemble').owner, 'assemble');
     assert.equal(gh('https://github.com').owner, null);
+
+    assert.end();
   });
 
-  it('should get the repo:', function() {
+  t.test('gets the repo:', function (assert) {
     assert.equal(gh('assemble/verb#branch').name, 'verb');
     assert.equal(gh('assemble/dot.repo#branch').name, 'dot.repo');
     assert.equal(gh('assemble/verb#dev').name, 'verb');
@@ -202,9 +214,11 @@ describe('parse-github-url', function() {
     assert.equal(gh('https://github.com/repos/assemble/verb/zipball').name, 'verb');
     assert.equal(gh('https://github.com/repos/assemble/dot.repo/zipball').name, 'dot.repo');
     assert.equal(gh('SocialGouv/.kontinuous').name, '.kontinuous');
+
+    assert.end();
   });
 
-  it('should get the host:', function() {
+  t.test('gets the host:', function (assert) {
     assert.equal(gh('git+https://github.com/assemble/verb.git').host, 'github.com');
     assert.equal(gh('git+ssh://github.com/assemble/verb.git').host, 'github.com');
     assert.equal(gh('git://github.com/assemble/verb').host, 'github.com');
@@ -218,9 +232,13 @@ describe('parse-github-url', function() {
     assert.equal(gh('git@gh.pages.com:assemble/dot.repo.git').host, 'gh.pages.com');
     assert.equal(gh('git@bitbucket.org:atlassian/atlaskit.git').host, 'bitbucket.org');
     assert.equal(gh('git@gitlab.com:gitlab-org/gitlab-ce.git').host, 'gitlab.com');
+
+    assert.end();
   });
 
-  it('should assume github.com is the host when not provided:', function() {
+  t.test('assumes github.com is the host when not provided:', function (assert) {
     assert.equal(gh('assemble/verb').host, 'github.com');
+
+    assert.end();
   });
 });
