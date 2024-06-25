@@ -62,7 +62,7 @@ function parse(str) {
 
 	if (!obj.host && (/^git@/).test(str) === true) {
 		// return the correct host for git@ URLs
-		obj.host = url.parse('http://' + str).host;
+		obj.host = url.parse('http://' + str.replace(/git@([^:]+):/, '$1/')).host;
 	}
 
 	obj.path = trimSlash(obj.path);
