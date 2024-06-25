@@ -5,6 +5,10 @@ var test = require('tape');
 var gh = require('../');
 
 test('parse-github-url', function (t) {
+	process.on('warning', function (e) {
+		t.fail(e, 'no deprecation warnings are issued');
+	});
+
 	t.equal(gh('toString').href, 'toString');
 
 	t.test('gets the user:', function (assert) {
