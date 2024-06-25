@@ -5,6 +5,8 @@ var test = require('tape');
 var gh = require('../');
 
 test('parse-github-url', function (t) {
+	t.equal(gh('toString').href, 'toString');
+
 	t.test('gets the user:', function (assert) {
 		assert.equal(gh(''), null);
 		assert.equal(gh('https://github.com/jonschlinkert/micromatch').owner, 'jonschlinkert');

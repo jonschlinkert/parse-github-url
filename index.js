@@ -8,7 +8,7 @@
 'use strict';
 
 var url = require('url');
-var cache = {};
+var cache = { __proto__: null };
 
 function isChecksum(str) {
 	return (/^[a-f0-9]{40}$/i).test(str);
