@@ -43,9 +43,7 @@
 		"@ljharb/eslint-config": "^21.1.1",
 		"aud": "^2.0.4",
 		"eslint": "=8.8.0",
-		"gulp-format-md": "^1.0.0",
-		"tape": "^5.8.1",
-		"verb-generate-readme": "^0.6.0"
+		"tape": "^5.8.1"
 	},
 	"keywords": [
 		"branch",
@@ -60,29 +58,6 @@
 		"user",
 		"username"
 	],
-	"verb": {
-		"run": true,
-		"toc": false,
-		"layout": "default",
-		"tasks": [
-			"readme"
-		],
-		"plugins": [
-			"gulp-format-md"
-		],
-		"related": {
-			"list": [
-				"git-add-remote",
-				"git-branch",
-				"git-repo-name",
-				"git-username",
-				"is-git-url"
-			]
-		},
-		"lint": {
-			"reflinks": true
-		}
-	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
 		"template": "keepachangelog",
