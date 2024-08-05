@@ -23,7 +23,7 @@ function getBranch(str, obj) {
 	if (!branch && obj.hash && obj.hash.charAt(0) === '#') {
 		branch = obj.hash.slice(1);
 	}
-	return branch || 'master';
+	return branch;
 }
 
 function trimSlash(path) {
