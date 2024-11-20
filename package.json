@@ -1,7 +1,7 @@
 {
-  "name": "parse-github-url",
+  "name": "isomorphic-parse-github-url",
   "description": "Parse a github URL into an object.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/jonschlinkert/parse-github-url",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "contributors": [
@@ -34,8 +34,8 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies" : {
-    "url": "^0.11.0"
+  "dependencies": {
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "gulp-format-md": "^1.0.0",
