@@ -2,6 +2,8 @@
 
 > Parse a github URL into an object.
 
+Identical to `parse-github-url`, except using the `url` NPM package as a browser polyfill for Node's built-in `url` package.
+
 Please consider following this project's author, [Jon Schlinkert](https://github.com/jonschlinkert), and consider starring the project to show your :heart: and support.
 
 ## Install
