@@ -807,5 +807,5 @@ You might also be interested in these projects:
 [downloads-url]: https://npm-stat.com/charts.html?package=parse-github-url
 [codecov-image]: https://codecov.io/gh/jonschlinkert/parse-github-url/branch/main/graphs/badge.svg
 [codecov-url]: https://app.codecov.io/gh/jonschlinkert/parse-github-url/
-[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/jonschlinkert/parse-github-url
+[actions-image]: https://img.shields.io/github/check-runs/jonschlinkert/parse-github-url/master
 [actions-url]: https://github.com/jonschlinkert/parse-github-url/actions
