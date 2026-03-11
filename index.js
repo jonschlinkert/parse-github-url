@@ -7,7 +7,7 @@
 
 'use strict';
 
-var url = require('url');
+var parseURL = require('./parse-url');
 var cache = { __proto__: null };
 
 function isChecksum(str) {
@@ -45,6 +45,14 @@ function owner(str) {
 	return str;
 }
 
+/**
+ * Extract the host from a git@ URL using the WHATWG URL API.
+ */
+function getGitAtHost(str) {
+	var transformed = 'http://' + str.replace(/git@([^:]+):/, '$1/');
+	return parseURL(transformed).host || null;
+}
+
 function parse(str) {
 	if (typeof str !== 'string' || !str.length) {
 		return null;
@@ -55,14 +63,14 @@ function parse(str) {
 	}
 
 	// parse the URL
-	var obj = url.parse(str);
+	var obj = parseURL(str);
 	if (typeof obj.path !== 'string' || !obj.path.length || typeof obj.pathname !== 'string' || !obj.pathname.length) {
 		return null;
 	}
 
 	if (!obj.host && (/^git@/).test(str) === true) {
 		// return the correct host for git@ URLs
-		obj.host = url.parse('http://' + str.replace(/git@([^:]+):/, '$1/')).host;
+		obj.host = getGitAtHost(str);
 	}
 
 	obj.path = trimSlash(obj.path);

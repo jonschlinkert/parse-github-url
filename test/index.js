@@ -5,9 +5,12 @@ var test = require('tape');
 var gh = require('../');
 
 test('parse-github-url', function (t) {
-	process.on('warning', function (e) {
+	function failOnWarn(e) {
 		t.fail(e, 'no deprecation warnings are issued');
-	});
+	}
+
+	process.on('warning', failOnWarn);
+	t.teardown(function () { process.removeListener('warning', failOnWarn); });
 
 	t.equal(gh('toString').href, 'toString');
 
@@ -247,4 +250,5 @@ test('parse-github-url', function (t) {
 
 		assert.end();
 	});
+
 });
