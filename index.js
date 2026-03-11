@@ -7,7 +7,6 @@
 
 'use strict';
 
-var url = require('url');
 var cache = { __proto__: null };
 
 function isChecksum(str) {
@@ -45,6 +44,89 @@ function owner(str) {
 	return str;
 }
 
+/**
+ * Parse a URL string into a url-compatible object using the WHATWG URL API.
+ * Falls back to manual parsing for non-standard URL formats.
+ */
+function parseUrl(str) {
+	try {
+		var u = new URL(str);
+		var auth = null;
+		if (u.username) {
+			auth = u.password ? (u.username + ':' + u.password) : u.username;
+		}
+		var host = u.host || null;
+		var hostname = u.hostname || null;
+		var pathname = u.pathname || null;
+		var path = (u.pathname + (u.search || '')) || null;
+
+		// For non-special schemes without '//' (e.g. 'github:user/repo', 'foo:bar'),
+		// the WHATWG URL API produces an opaque path (host is empty). Replicate the
+		// legacy url.parse() behavior: treat the first path segment as the host.
+		if (!host && pathname && str.indexOf('//') === -1) {
+			var slashIdx = pathname.indexOf('/');
+			if (slashIdx === -1) {
+				// e.g. 'foo:bar' — no path segment, only a host-like token → null path
+				host = pathname;
+				hostname = pathname;
+				pathname = null;
+				path = null;
+			} else {
+				// e.g. 'github:user/repo' — first segment is host, rest is path
+				host = pathname.slice(0, slashIdx);
+				hostname = host;
+				pathname = pathname.slice(slashIdx);
+				path = pathname + (u.search || '');
+			}
+		}
+
+		return {
+			protocol: u.protocol || null,
+			slashes: true,
+			auth: auth,
+			host: host,
+			port: u.port || null,
+			hostname: hostname,
+			hash: u.hash || null,
+			search: u.search || null,
+			query: u.search ? u.search.slice(1) : null,
+			pathname: pathname,
+			path: path,
+			href: u.href
+		};
+	} catch (_) {
+		// Fall back for non-standard strings (bare paths, git@ URLs, etc.)
+		var hashIdx = str.indexOf('#');
+		var hash = hashIdx !== -1 ? str.slice(hashIdx) : null;
+		var pathPart = hashIdx !== -1 ? str.slice(0, hashIdx) : str;
+		return {
+			protocol: null,
+			slashes: null,
+			auth: null,
+			host: null,
+			port: null,
+			hostname: null,
+			hash: hash,
+			search: null,
+			query: null,
+			pathname: pathPart || null,
+			path: pathPart || null,
+			href: str
+		};
+	}
+}
+
+/**
+ * Extract the host from a git@ URL using the WHATWG URL API.
+ */
+function getGitAtHost(str) {
+	try {
+		return new URL('http://' + str.replace(/git@([^:]+):/, '$1/')).host;
+	} catch (_) {
+		return null;
+	}
+}
+
 function parse(str) {
 	if (typeof str !== 'string' || !str.length) {
 		return null;
@@ -55,14 +137,14 @@ function parse(str) {
 	}
 
 	// parse the URL
-	var obj = url.parse(str);
+	var obj = parseUrl(str);
 	if (typeof obj.path !== 'string' || !obj.path.length || typeof obj.pathname !== 'string' || !obj.pathname.length) {
 		return null;
 	}
 
 	if (!obj.host && (/^git@/).test(str) === true) {
 		// return the correct host for git@ URLs
-		obj.host = url.parse('http://' + str.replace(/git@([^:]+):/, '$1/')).host;
+		obj.host = getGitAtHost(str);
 	}
 
 	obj.path = trimSlash(obj.path);
