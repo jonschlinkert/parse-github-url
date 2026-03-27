@@ -19,10 +19,6 @@
 		"url": "https://github.com/jonschlinkert/parse-github-url/issues"
 	},
 	"license": "MIT",
-	"files": [
-		"cli.js",
-		"index.js"
-	],
 	"main": "index.js",
 	"bin": {
 		"parse-github-url": "./cli.js"
@@ -35,6 +31,7 @@
 		"pretest": "npm run lint",
 		"tests-only": "tape 'test/**/*.js'",
 		"test": "npm run tests-only",
+		"prepack": "npmignore --auto",
 		"posttest": "npx npm@\">= 10.2\" audit --production",
 		"version": "auto-changelog && git add CHANGELOG.md",
 		"postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
@@ -43,6 +40,7 @@
 		"@ljharb/eslint-config": "^22.2.2",
 		"auto-changelog": "^2.5.0",
 		"encoding": "^0.1.0",
+		"npmignore": "^0.3.1",
 		"eslint": "^8.57.1",
 		"tape": "^5.9.0"
 	},
@@ -59,6 +57,16 @@
 		"user",
 		"username"
 	],
+	"publishConfig": {
+		"ignore": [
+			".github/",
+			".editorconfig",
+			".eslintrc",
+			".gitattributes",
+			"support.js",
+			"test/"
+		]
+	},
 	"auto-changelog": {
 		"output": "CHANGELOG.md",
 		"template": "keepachangelog",
