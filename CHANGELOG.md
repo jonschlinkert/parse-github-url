@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.4](https://github.com/jonschlinkert/parse-github-url/compare/v1.0.3...v1.0.4) - 2026-04-01
+
+### Commits
+
+- [Fix] deprecation of url.parse [`771ffeb`](https://github.com/jonschlinkert/parse-github-url/commit/771ffeb357133175ff3a44417e5098df82f90735)
+- [meta] remove unused file [`74a03e6`](https://github.com/jonschlinkert/parse-github-url/commit/74a03e60590022bdab7baff5c3f856394c6622ff)
+- [actions] update workflows [`2aae57b`](https://github.com/jonschlinkert/parse-github-url/commit/2aae57b3b363824210737adebcbf090dfc0481de)
+- [meta] switch from `files` to `npmignore` [`d49444c`](https://github.com/jonschlinkert/parse-github-url/commit/d49444c4b29fedb7f0728c6a89ef64ff4ec8b215)
+- [Dev Deps] update `@ljharb/eslint-config`, `auto-changelog`, `eslint`, `tape` [`8abcf5f`](https://github.com/jonschlinkert/parse-github-url/commit/8abcf5f763a5a2e78b19d889e393eca146f53fb4)
+- [meta] use `npm audit` instead of `aud` [`01b50da`](https://github.com/jonschlinkert/parse-github-url/commit/01b50da2905060edd64d9de09382e00ea28074dd)
+- [Dev Deps] update `npmignore` [`ab4f0a8`](https://github.com/jonschlinkert/parse-github-url/commit/ab4f0a813f9b49559af333dc4d7ecdc59b5ad9ed)
+- [readme] replace runkit CI badge with shields.io check-runs badge [`c2fb7a9`](https://github.com/jonschlinkert/parse-github-url/commit/c2fb7a98fbb1047f92d26e2f9095e522a3c126d5)
+
 ## [v1.0.3](https://github.com/jonschlinkert/parse-github-url/compare/v1.0.2...v1.0.3) - 2024-06-26
 
 ### Fixed
